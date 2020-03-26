@@ -10,8 +10,7 @@ if path.exists("env.py"):
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
-app.config["MONGODB_NAME"] = os.environ.get("MONGODB_NAME",
-                                            'mongodb://localhost')
+app.config["MONGODB_NAME"] = "TesterMongo"
 
 mongo = PyMongo(app)
 
@@ -22,7 +21,7 @@ mongo = PyMongo(app)
 @app.route('/get_requests')
 def get_requests():
     return render_template("requests.html",
-                           requests=mongo.db.c_requests.find())
+                           requests=mongo.db.ctest_requests.find())
 
 
 # @app.route('/index.html')
@@ -31,7 +30,7 @@ def get_requests():
 
 @app.route('/new_requests')
 def add_new_requests():
-    return render_template("new_requests.html", foods=mongo.db.c_food.find(),members=mongo.db.c_members.find())
+    return render_template("new_requests.html", foods=mongo.db.c_food.find(), members=mongo.db.c_members.find())
 
 
 @app.route('/get_users')
